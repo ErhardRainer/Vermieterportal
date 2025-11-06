@@ -1,0 +1,27 @@
+/* Custom styles for the Immobilien-Portal */
+body { 
+  font-family: 'Inter', sans-serif; 
+}
+
+/* Tabs: aktiv/inaktiv */
+.tab-active { 
+  border-bottom-color: #3b82f6; 
+  color: #3b82f6; 
+  font-weight: 600; 
+}
+
+.tab-inactive { 
+  border-bottom-color: transparent; 
+  color: #6b7280; 
+}
+
+/* Handwerker-Liste */
+.tradesman-item:hover { 
+  background-color: #f3f4f6; 
+}
+
+.tradesman-active { 
+  background-color: #dbeafe; 
+  border-left: 4px solid #3b82f6; 
+  padding-left: 12px !important; 
+}
