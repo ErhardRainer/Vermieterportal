@@ -5,6 +5,10 @@
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 
+// Enable error display for local development (remove/disable in production)
+@ini_set('display_errors', '1');
+@error_reporting(E_ALL);
+
 // Allow CORS for local dev if needed (same-origin won't use it)
 if (isset($_SERVER['HTTP_ORIGIN'])) {
   header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
@@ -68,6 +72,12 @@ function writeMessages($immoId, $messages) {
   $json = json_encode($messages, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
   if ($json === false) { http_response_code(500); return [ 'error' => 'JSONEncodeError', 'message' => 'Failed to encode messages' ]; }
   $ok = file_put_contents($msgPath, $json);
+  // Debug: log write attempt
+  try {
+    $dbg = __DIR__ . '/../data/api_debug.log';
+    $entry = sprintf("%s WRITE_MESSAGES immo=%s path=%s bytes=%s\n", date('c'), $immoId, $msgPath, ($ok === false ? 'false' : intval($ok)));
+    @file_put_contents($dbg, $entry, FILE_APPEND | LOCK_EX);
+  } catch (Exception $e) { /* ignore debug logging failures */ }
   if ($ok === false) { http_response_code(500); return [ 'error' => 'WriteError', 'message' => 'Failed to write messages file' ]; }
   return [ 'success' => true ];
 }
@@ -378,6 +388,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   $rawInput = file_get_contents('php://input');
+  // Debug: log incoming POST body
+  try {
+    $dbg = __DIR__ . '/../data/api_debug.log';
+    $entry = sprintf("%s POST_RAW immoId=%s body=%s\n", date('c'), isset($_POST['immoId']) ? $_POST['immoId'] : (isset($_GET['immoId']) ? $_GET['immoId'] : 'n/a'), substr($rawInput,0,2000));
+    @file_put_contents($dbg, $entry, FILE_APPEND | LOCK_EX);
+  } catch (Exception $e) { /* ignore */ }
   $postData = json_decode($rawInput, true);
   if ($postData === null) {
     http_response_code(400);

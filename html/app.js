@@ -934,7 +934,15 @@ document.addEventListener('DOMContentLoaded', function () {
         if (paramTab) {
           const lower = String(paramTab).toLowerCase();
           const btns = Array.from(document.querySelectorAll('#tab-buttons button.tab-button'));
-          const match = btns.find(b => b.dataset && b.dataset.tab && b.dataset.tab.toLowerCase() === lower);
+          // 1) try exact match against data-tab
+          let match = btns.find(b => b.dataset && b.dataset.tab && b.dataset.tab.toLowerCase() === lower);
+          // 2) fallback: try matching the visible label text (exact or contains)
+          if (!match) {
+            match = btns.find(b => {
+              const txt = (b.textContent || '').trim().toLowerCase();
+              return txt === lower || txt.includes(lower);
+            });
+          }
           if (match) desiredTab = match.dataset.tab;
         }
         const btnToClick = document.querySelector(`#tab-buttons button.tab-button[data-tab="${desiredTab}"]`);
