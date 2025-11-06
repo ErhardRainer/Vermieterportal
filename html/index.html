@@ -19,6 +19,10 @@
   <!-- Lucide Icons (Browser/UMD) - NICHT lucide-react -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
+  <!-- Quill WYSIWYG (CDN) -->
+  <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet" />
+  <script defer src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+
   <!-- Custom CSS -->
   <link rel="stylesheet" href="./styles.css" />
 </head>
@@ -39,31 +43,31 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </button>
         <!-- Bildzähler -->
-        <div id="image-counter" class="absolute bottom-4 right-4 bg-black/50 text-white text-sm px-3 py-1 rounded-full select-none">1 / 4</div>
+  <div id="image-counter" class="absolute bottom-4 right-4 bg-black/50 text-white text-sm px-3 py-1 rounded-full select-none hidden"></div>
 
         <!-- Overlay-Infokarte (nur Desktop) -->
         <div class="hidden md:block absolute top-6 right-6 max-w-md z-10">
           <div class="bg-white/95 backdrop-blur rounded-xl shadow-xl p-5">
-            <h1 class="text-2xl font-bold text-gray-900">Moderne 3-Zimmer-Wohnung im Zentrum</h1>
-            <p class="text-xl font-semibold text-blue-600 mt-2">Mietkosten: von 800 €</p>
-            <p class="text-gray-600 mt-1 flex items-center gap-2"><span id="address-text-desktop">Hauptstraße 10, 10115 Berlin</span><a id="map-link-desktop" href="https://www.google.com/maps/search/?api=1&query=Hauptstraße%2010%2C%2010115%20Berlin" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-blue-600 hover:text-blue-700" aria-label="In Google Maps öffnen" title="In Google Maps öffnen"><i data-lucide="paperclip" class="w-4 h-4">📎</i></a></p>
+            <h1 id="title-desktop" class="text-2xl font-bold text-gray-900"></h1>
+            <p id="rent-desktop" class="text-xl font-semibold text-blue-600 mt-2"></p>
+            <p class="text-gray-600 mt-1 flex items-center gap-2"><span id="address-text-desktop"></span><a id="map-link-desktop" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-blue-600 hover:text-blue-700" aria-label="In Google Maps öffnen" title="In Google Maps öffnen"><i data-lucide="paperclip" class="w-4 h-4">📎</i></a></p>
           </div>
         </div>
       </div>
 
       <!-- Mobile: Titel unter dem Bild -->
       <div class="md:hidden p-6 lg:p-8">
-        <h1 class="text-3xl font-bold text-gray-900">Moderne 3-Zimmer-Wohnung im Zentrum</h1>
-        <p class="text-2xl font-semibold text-blue-600 mt-2">Mietkosten: von 800 €</p>
-        <p class="text-gray-600 mt-1 flex items-center gap-2"><span id="address-text-mobile">Hauptstraße 10, 10115 Berlin</span><a id="map-link-mobile" href="https://www.google.com/maps/search/?api=1&query=Hauptstraße%2010%2C%2010115%20Berlin" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-blue-600 hover:text-blue-700" aria-label="In Google Maps öffnen" title="In Google Maps öffnen"><i data-lucide="paperclip" class="w-4 h-4">📎</i></a></p>
+        <h1 id="title-mobile" class="text-3xl font-bold text-gray-900"></h1>
+        <p id="rent-mobile" class="text-2xl font-semibold text-blue-600 mt-2"></p>
+  <p class="text-gray-600 mt-1 flex items-center gap-2"><span id="address-text-mobile"></span><a id="map-link-mobile" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-blue-600 hover:text-blue-700" aria-label="In Google Maps öffnen" title="In Google Maps öffnen"><i data-lucide="paperclip" class="w-4 h-4">📎</i></a></p>
       </div>
 
       <!-- Tabs & Inhalte: volle Breite unter dem Bild -->
       <div class="w-full p-6 lg:p-8">
         <!-- Tab-Navigation -->
         <div class="border-b border-gray-200 mt-2">
-          <nav id="tab-buttons" class="flex flex-wrap -mb-px space-x-6" aria-label="Tabs" role="tablist">
-            <button class="tab-button tab-inactive border-b-2 border-transparent pb-2" data-tab="allgemein" role="tab" aria-selected="false">Allgemein</button>
+            <nav id="tab-buttons" class="flex flex-wrap -mb-px space-x-6" aria-label="Tabs" role="tablist">
+            <button class="tab-button tab-active border-b-2 pb-2" data-tab="allgemein" role="tab" aria-selected="true">Allgemein</button>
             <button class="tab-button tab-inactive border-b-2 border-transparent pb-2" data-tab="dokumente" role="tab" aria-selected="false">Mietverträge</button>
             <button class="tab-button tab-inactive border-b-2 border-transparent pb-2" data-tab="kontakt" role="tab" aria-selected="false">Kontakt</button>
             <button class="tab-button tab-inactive border-b-2 border-transparent pb-2" data-tab="lage" role="tab" aria-selected="false">Lage</button>
@@ -72,53 +76,25 @@
             <button class="tab-button tab-inactive border-b-2 border-transparent pb-2" data-tab="betriebsanleitungen" role="tab" aria-selected="false">Betriebsanleitungen</button>
             <button class="tab-button tab-inactive border-b-2 border-transparent pb-2" data-tab="maengelliste" role="tab" aria-selected="false">Mängelliste</button>
             <!-- Start-Tab -->
-            <button class="tab-button tab-active border-b-2 pb-2" data-tab="betriebskosten" role="tab" aria-selected="true">Betriebskosten</button>
+            <button class="tab-button tab-inactive border-b-2 border-transparent pb-2" data-tab="betriebskosten" role="tab" aria-selected="false">Betriebskosten</button>
           </nav>
         </div>
 
         <!-- Tab-Inhalte -->
         <div id="tab-content" class="mt-6">
           <!-- Allgemein Tab -->
-          <div class="tab-pane hidden" data-tab-content="allgemein" role="tabpanel">
+          <div class="tab-pane hidden relative" data-tab-content="allgemein" role="tabpanel">
+            <button id="general-edit-btn" class="absolute -top-2 right-0 inline-flex items-center px-2 py-1 text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings mr-1"><path d="M12 9a3 3 0 1 0 3 3 3 3 0 0 0-3-3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 8 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H2a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 3.6 8a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 8 3.6a1.65 1.65 0 0 0 1-1.51V2a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 20.4 8a1.65 1.65 0 0 0 1.51 1H22a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 2"/></svg>
+              Bearbeiten
+            </button>
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Überblick</h2>
-            <ul class="space-y-2 text-gray-700">
-              <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home mr-3 text-blue-500"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                Wohnfläche: 85 m²
-              </li>
-              <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bed-double mr-3 text-blue-500"><path d="M2 16v-2a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v2"/><path d="M2 12v-2a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v2"/><path d="M4 12V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M2 20h20"/><path d="M4 16v4"/><path d="M20 16v4"/></svg>
-                Zimmer: 3
-              </li>
-              <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bath mr-3 text-blue-500"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.4 3 3 4.4 3 6c0 1.2.8 2.2 1.8 2.6l3.2 1.4"/><path d="m21 6-2.5-2.5a1.5 1.5 0 0 0-1-.5c-1.1 0-2.5 1.4-2.5 3 0 1.2.8 2.2 1.8 2.6l3.2 1.4"/><path d="M3 21h18v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2Z"/><path d="M5 15v-1a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v1"/></svg>
-                Badezimmer: 1
-              </li>
-            </ul>
+            <ul id="overview-list" class="space-y-2 text-gray-700"><!-- via JS --></ul>
             <h3 class="text-lg font-semibold text-gray-800 mt-6 mb-2">Beschreibung</h3>
-            <p class="text-gray-700 leading-relaxed">Diese helle und modern geschnittene 3-Zimmer-Wohnung befindet sich in einer begehrten Lage im Zentrum. Sie besticht durch bodentiefe Fenster, einen offenen Wohn-Essbereich und einen sonnigen Balkon. Hochwertiges Parkett und eine moderne Einbauküche runden das Angebot ab.</p>
+            <div id="description" class="text-gray-700 leading-relaxed"></div>
 
             <h3 class="text-lg font-semibold text-gray-800 mt-6 mb-3">Dokumente zur Wohnung</h3>
-            <ul class="space-y-3">
-              <li>
-                <a href="#" class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-150">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text mr-3 text-blue-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg>
-                  <span class="font-medium text-gray-800">Grundriss (PDF)</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-150">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cube mr-3 text-blue-500"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12l8.73-5.04"/><path d="M12 22V12"/></svg>
-                  <span class="font-medium text-gray-800">3D Modell</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-150">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text mr-3 text-blue-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg>
-                  <span class="font-medium text-gray-800">Energieausweis (PDF)</span>
-                </a>
-              </li>
-            </ul>
+            <ul id="apartment-documents-list" class="space-y-3"><!-- via JS --></ul>
           </div>
 
           <!-- Mietverträge Tab (ehem. Dokumente) -->
@@ -128,40 +104,11 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
                 <h3 class="text-lg font-semibold text-gray-800 mb-3">Allgemeines</h3>
-                <ul class="space-y-2 text-gray-700">
-                  <li class="flex items-center"><span class="w-56 text-gray-500">Beginn des Mietvertrages:</span><span>01.03.2020</span></li>
-                  <li class="flex items-center"><span class="w-56 text-gray-500">Befristung des Mietvertrages:</span><span>Nein</span></li>
-                  <li class="flex items-center"><span class="w-56 text-gray-500">Verlängerung des Mietvertrages am:</span><span>—</span></li>
-                </ul>
+                <ul id="contracts-general-list" class="space-y-2 text-gray-700"><!-- via JS --></ul>
               </div>
               <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
                 <h3 class="text-lg font-semibold text-gray-800 mb-3">Dokumente</h3>
-                <ul class="space-y-3">
-                  <li>
-                    <a href="#" class="flex items-center p-3 bg-white rounded-lg hover:bg-gray-50 transition duration-150 border border-gray-200">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text mr-3 text-blue-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg>
-                      <span class="font-medium text-gray-800">Mietvertrag</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="flex items-center p-3 bg-white rounded-lg hover:bg-gray-50 transition duration-150 border border-gray-200">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text mr-3 text-blue-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg>
-                      <span class="font-medium text-gray-800">Haustiererlaubnis</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="flex items-center p-3 bg-white rounded-lg hover:bg-gray-50 transition duration-150 border border-gray-200">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text mr-3 text-blue-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg>
-                      <span class="font-medium text-gray-800">Garagenmietvertrag</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="flex items-center p-3 bg-white rounded-lg hover:bg-gray-50 transition duration-150 border border-gray-200">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text mr-3 text-blue-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg>
-                      <span class="font-medium text-gray-800">Verlängerung des Mietvertrags</span>
-                    </a>
-                  </li>
-                </ul>
+                <ul id="contracts-documents-list" class="space-y-3"><!-- via JS --></ul>
               </div>
             </div>
           </div>
@@ -171,23 +118,111 @@
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Kontakt</h2>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-800 mb-3">Kontakt des Vermieters</h3>
-                <ul class="space-y-2 text-gray-700">
-                  <li><span class="text-gray-500">Name:</span> Max Vermieter</li>
-                  <li><span class="text-gray-500">Adresse:</span> Musterstraße 1, 10115 Berlin</li>
-                  <li><span class="text-gray-500">Telefon:</span> <a class="text-blue-600 hover:underline" href="tel:+4930123456">+49 30 123456</a></li>
-                  <li><span class="text-gray-500">Email:</span> <a class="text-blue-600 hover:underline" href="mailto:vermieter@example.com">vermieter@example.com</a></li>
-                </ul>
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="text-lg font-semibold text-gray-800">Kontakt des Vermieters</h3>
+                  <button id="edit-landlord-btn" class="text-sm text-blue-600 hover:text-blue-700 px-3 py-1 rounded hover:bg-blue-50">
+                    Bearbeiten
+                  </button>
+                </div>
+                <ul id="landlord-contact" class="space-y-2 text-gray-700"><!-- via JS --></ul>
               </div>
               <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-800 mb-3">Kontakt des Mieters</h3>
-                <ul class="space-y-2 text-gray-700">
-                  <li><span class="text-gray-500">Name:</span> Erika Mieterin</li>
-                  <li><span class="text-gray-500">Adresse:</span> Hauptstraße 10, 10115 Berlin</li>
-                  <li><span class="text-gray-500">Telefon:</span> <a class="text-blue-600 hover:underline" href="tel:+491751234567">+49 175 1234567</a></li>
-                  <li><span class="text-gray-500">Email:</span> <a class="text-blue-600 hover:underline" href="mailto:mieter@example.com">mieter@example.com</a></li>
-                </ul>
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="text-lg font-semibold text-gray-800">Kontakt des Mieters</h3>
+                  <button id="edit-tenant-btn" class="text-sm text-blue-600 hover:text-blue-700 px-3 py-1 rounded hover:bg-blue-50">
+                    Bearbeiten
+                  </button>
+                </div>
+                <ul id="tenant-contact" class="space-y-2 text-gray-700"><!-- via JS --></ul>
               </div>
+            </div>
+          </div>
+
+          <!-- Contact Edit Modal -->
+          <div id="contact-edit-modal" class="hidden fixed inset-0 bg-black/50 z-50 items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="contact-edit-title">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
+              <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+                <h3 id="contact-edit-title" class="text-lg font-semibold text-gray-800">Kontakt bearbeiten</h3>
+                <button id="contact-edit-close" class="p-2 text-gray-500 hover:text-gray-700" aria-label="Schließen">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+              </div>
+              <form id="contact-edit-form" class="px-6 py-4">
+                <div class="space-y-4">
+                  <div>
+                    <label for="contact-name" class="block text-sm font-medium text-gray-700">Name</label>
+                    <input type="text" id="contact-name" name="name" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required />
+                  </div>
+                  <div>
+                    <label for="contact-address" class="block text-sm font-medium text-gray-700">Adresse</label>
+                    <input type="text" id="contact-address" name="address" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+                  </div>
+                  <div>
+                    <label for="contact-phone" class="block text-sm font-medium text-gray-700">Telefon</label>
+                    <input type="tel" id="contact-phone" name="phone" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+                  </div>
+                  <div>
+                    <label for="contact-email" class="block text-sm font-medium text-gray-700">E-Mail</label>
+                    <input type="email" id="contact-email" name="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+                  </div>
+                </div>
+                <div class="flex items-center justify-end space-x-3 mt-6 pt-4 border-t border-gray-200">
+                  <button type="button" id="contact-edit-cancel" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                    Abbrechen
+                  </button>
+                  <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+                    Speichern
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Tradesman Edit/Add Modal -->
+          <div id="tradesman-modal" class="hidden fixed inset-0 bg-black/50 z-50 items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="tradesman-modal-title">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
+              <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+                <h3 id="tradesman-modal-title" class="text-lg font-semibold text-gray-800">Handwerker</h3>
+                <button id="tradesman-modal-close" class="p-2 text-gray-500 hover:text-gray-700" aria-label="Schließen">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+              </div>
+              <form id="tradesman-form" class="px-6 py-4">
+                <div class="space-y-4">
+                  <div>
+                    <label for="tr-name" class="block text-sm font-medium text-gray-700">Name</label>
+                    <input type="text" id="tr-name" name="name" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm" required />
+                  </div>
+                  <div>
+                    <label for="tr-specialty" class="block text-sm font-medium text-gray-700">Fachgebiet</label>
+                    <input type="text" id="tr-specialty" name="specialty" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm" />
+                  </div>
+                  <div>
+                    <label for="tr-phone" class="block text-sm font-medium text-gray-700">Telefon</label>
+                    <input type="tel" id="tr-phone" name="phone" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm" />
+                  </div>
+                  <div>
+                    <label for="tr-email" class="block text-sm font-medium text-gray-700">E-Mail</label>
+                    <input type="email" id="tr-email" name="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm" />
+                  </div>
+                  <div>
+                    <label for="tr-website" class="block text-sm font-medium text-gray-700">Webseite</label>
+                    <input type="url" id="tr-website" name="website" placeholder="https://example.de" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm" />
+                  </div>
+                  <div>
+                    <label for="tr-comment" class="block text-sm font-medium text-gray-700">Kommentar</label>
+                    <textarea id="tr-comment" name="comment" rows="3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm" placeholder="Kurzer Hinweis oder Bemerkung zum Handwerker"></textarea>
+                  </div>
+                  <div>
+                    <label for="tr-icon" class="block text-sm font-medium text-gray-700">Icon</label>
+                    <input type="text" id="tr-icon" name="icon" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm" placeholder="z.B. wrench" />
+                  </div>
+                </div>
+                <div class="flex items-center justify-end space-x-3 mt-6 pt-4 border-t border-gray-200">
+                  <button type="button" id="tradesman-cancel" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">Abbrechen</button>
+                  <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700">Speichern</button>
+                </div>
+              </form>
             </div>
           </div>
 
@@ -195,14 +230,18 @@
           <div class="tab-pane hidden" data-tab-content="lage" role="tabpanel">
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Standort auf der Karte</h2>
             <div class="w-full h-[500px] md:h-[650px] lg:h-[750px] rounded-lg overflow-hidden border border-gray-200">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.631031301903!2d13.402360215807494!3d52.52000837981389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851c13416a4e3%3A0x86770e64c83e449c!2sAlexanderplatz!5e0!3m2!1sde!2sde!4v1678886000001" width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Kartenansicht"></iframe>
+              <iframe id="map-iframe" src="" width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Kartenansicht"></iframe>
             </div>
-            <p class="mt-4 text-gray-700">Die Immobilie befindet sich in zentraler Lage. Die genaue Adresse lautet: Hauptstraße 10, 10115 Berlin.</p>
+            <p class="mt-4 text-gray-700">Die Immobilie befindet sich in zentraler Lage. Die genaue Adresse lautet: <span id="address-text-lage"></span>.</p>
           </div>
 
           <!-- Handwerker Tab -->
           <div class="tab-pane hidden" data-tab-content="handwerker" role="tabpanel">
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Empfohlene Dienstleister</h2>
+            <div class="flex items-center justify-between mb-4">
+              <p class="text-gray-600">Empfohlene Dienstleister in Ihrer Nähe.</p>
+              <button id="add-tradesman-btn" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-md">Handwerker hinzufügen</button>
+            </div>
             <div class="lg:flex lg:space-x-8">
               <div class="w-full lg:w-1/2">
                 <ul id="tradesmen-list" class="space-y-2"><!-- Items via JS --></ul>
@@ -218,27 +257,22 @@
           <!-- Betriebsanleitungen Tab (neu) -->
           <div class="tab-pane hidden" data-tab-content="betriebsanleitungen" role="tabpanel">
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Betriebsanleitungen</h2>
-            <ul class="space-y-3">
-              <li>
-                <a href="#" class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-150">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text mr-3 text-blue-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg>
-                  <span class="font-medium text-gray-800">Herd – Bedienungsanleitung</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-150">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text mr-3 text-blue-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg>
-                  <span class="font-medium text-gray-800">Geschirrspüler – Bedienungsanleitung</span>
-                </a>
-              </li>
-            </ul>
+            <ul id="manuals-list" class="space-y-3"><!-- via JS --></ul>
           </div>
 
           <!-- Mängelliste Tab (neu) -->
           <div class="tab-pane hidden" data-tab-content="maengelliste" role="tabpanel">
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Mängelliste</h2>
             <p class="text-gray-600 mb-4">Dokumentation von Mängeln als Tabelle. Über das Bildsymbol öffnen Sie die Bildergalerie mit Beschreibung.</p>
-
+            <div class="flex items-center justify-between mb-4">
+              <p class="text-gray-600">Dokumentation von Mängeln als Tabelle. Über das Bildsymbol öffnen Sie die Bildergalerie mit Beschreibung.</p>
+              <div class="flex items-center space-x-2">
+                <label for="room-filter" class="text-sm text-gray-600">Raum filtern:</label>
+                <select id="room-filter" class="mt-1 block pl-3 pr-10 py-2 text-sm border-gray-300 rounded-md shadow-sm bg-white">
+                  <option value="">Alle Räume</option>
+                </select>
+              </div>
+            </div>
             <!-- Defekt-Viewer (Overlay) -->
             <div id="defect-viewer" class="hidden fixed inset-0 bg-black/50 z-50 items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="defect-viewer-title">
               <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl mx-4 overflow-hidden">
@@ -279,38 +313,7 @@
                     <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bilder</th>
                   </tr>
                 </thead>
-                <tbody id="defects-tbody" class="bg-white divide-y divide-gray-200">
-                  <tr>
-                    <td class="px-4 py-3 text-gray-800">Kratzer am Parkett nahe Balkontür</td>
-                    <td class="px-4 py-3 text-gray-600">Wohnzimmer</td>
-                    <td class="px-4 py-3">
-                      <button class="defect-view-btn inline-flex items-center px-3 py-2 text-sm text-blue-600 hover:text-blue-700" data-defect-id="def1" aria-label="Bilder anzeigen">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-images mr-2"><path d="M3 7v10a2 2 0 0 0 2 2h12"/><path d="M8 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2"/><path d="m21 15-5-5L5 21"/><path d="M5 16l3-3"/></svg>
-                        Bilder
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="px-4 py-3 text-gray-800">Lose Silikonfuge an der Dusche</td>
-                    <td class="px-4 py-3 text-gray-600">Bad</td>
-                    <td class="px-4 py-3">
-                      <button class="defect-view-btn inline-flex items-center px-3 py-2 text-sm text-blue-600 hover:text-blue-700" data-defect-id="def2" aria-label="Bilder anzeigen">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-images mr-2"><path d="M3 7v10a2 2 0 0 0 2 2h12"/><path d="M8 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2"/><path d="m21 15-5-5L5 21"/><path d="M5 16l3-3"/></svg>
-                        Bilder
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="px-4 py-3 text-gray-800">Schublade links klemmt</td>
-                    <td class="px-4 py-3 text-gray-600">Küche</td>
-                    <td class="px-4 py-3">
-                      <button class="defect-view-btn inline-flex items-center px-3 py-2 text-sm text-blue-600 hover:text-blue-700" data-defect-id="def3" aria-label="Bilder anzeigen">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-images mr-2"><path d="M3 7v10a2 2 0 0 0 2 2h12"/><path d="M8 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2"/><path d="m21 15-5-5L5 21"/><path d="M5 16l3-3"/></svg>
-                        Bilder
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
+                <tbody id="defects-tbody" class="bg-white divide-y divide-gray-200"><!-- via JS --></tbody>
               </table>
             </div>
           </div>
@@ -322,20 +325,7 @@
               <!-- Verlauf -->
               <div class="lg:col-span-2 p-4 bg-gray-50 rounded-lg border border-gray-200">
                 <h3 class="text-lg font-semibold text-gray-800 mb-3">Verlauf</h3>
-                <ul class="space-y-4" aria-live="polite">
-                  <li class="p-3 bg-white rounded-lg border border-gray-200">
-                    <div class="text-sm text-gray-500">01.10.2024 • Vermieter</div>
-                    <div class="text-gray-800">Die Wartung der Heizung findet nächste Woche statt.</div>
-                  </li>
-                  <li class="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                    <div class="text-sm text-gray-500">02.10.2024 • Mieter</div>
-                    <div class="text-gray-800">Vielen Dank für die Info. Passt für mich.</div>
-                  </li>
-                  <li class="p-3 bg-white rounded-lg border border-gray-200">
-                    <div class="text-sm text-gray-500">15.10.2024 • Vermieter</div>
-                    <div class="text-gray-800">Bitte beachten Sie die neue Hausordnung im Anhang.</div>
-                  </li>
-                </ul>
+                <ul id="messages-list" class="space-y-4" aria-live="polite"><!-- via JS --></ul>
               </div>
               <!-- Neue Nachricht -->
               <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
@@ -349,6 +339,10 @@
                         <option value="reparatur">Reparatur</option>
                         <option value="dokumente">Dokumente</option>
                       </select>
+                    </div>
+                    <div>
+                      <label for="nachricht_ref" class="block text-sm font-medium text-gray-700">Referenz (optional)</label>
+                      <input id="nachricht_ref" name="nachricht_ref" type="text" placeholder="z. B. Mangel-ID, Vertragsnummer, Dokumenttitel" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
                     </div>
                     <div>
                       <label for="nachricht_formular" class="block text-sm font-medium text-gray-700">Nachricht</label>
@@ -369,11 +363,7 @@
 
             <div class="flex items-center space-x-3 mb-4">
               <label for="year-select" class="text-sm font-medium text-gray-700">Jahr auswählen:</label>
-              <select id="year-select" class="block pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md shadow-sm w-32">
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-              </select>
+              <select id="year-select" class="block pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md shadow-sm w-32"></select>
             </div>
 
             <!-- Zusammenfassung des Ergebnisses -->
@@ -401,26 +391,7 @@
             
             <!-- Dokumente zu Betriebskosten -->
             <h3 class="text-lg font-semibold text-gray-800 mt-6 mb-3">Dokumente</h3>
-            <ul class="space-y-3">
-              <li>
-                <a href="#" class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-150">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text mr-3 text-blue-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg>
-                  <span class="font-medium text-gray-800">Betriebskostenabrechnung 2022</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-150">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text mr-3 text-blue-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg>
-                  <span class="font-medium text-gray-800">Betriebskostenabrechnung 2023</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-150">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text mr-3 text-blue-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg>
-                  <span class="font-medium text-gray-800">Vorschreibung 2024</span>
-                </a>
-              </li>
-            </ul>
+            <ul id="costs-documents-list" class="space-y-3"><!-- via JS --></ul>
           </div>
         </div>
       </div>
@@ -428,6 +399,86 @@
   </div>
 
   <!-- Custom JavaScript -->
+  <script src="./icon-utils.js"></script>
   <script src="./app.js"></script>
+
+  <!-- General Edit Modal -->
+  <div id="general-edit-modal" class="hidden fixed inset-0 bg-black/50 z-50 items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="general-edit-title">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl mx-4 overflow-hidden">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+        <h3 id="general-edit-title" class="text-lg font-semibold text-gray-800">Allgemein bearbeiten</h3>
+        <button id="general-edit-close" class="p-2 text-gray-500 hover:text-gray-700" aria-label="Schließen">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <div class="px-6 pt-4">
+        <nav id="general-edit-tabs" class="border-b border-gray-200" role="tablist">
+          <div class="flex flex-wrap -mb-px space-x-6">
+            <button class="tab-button tab-active border-b-2 pb-2" data-tab="edit-ueberblick" role="tab" aria-selected="true">Überblick</button>
+            <button class="tab-button tab-inactive border-b-2 border-transparent pb-2" data-tab="edit-beschreibung" role="tab" aria-selected="false">Beschreibung</button>
+            <button class="tab-button tab-inactive border-b-2 border-transparent pb-2" data-tab="edit-dokumente" role="tab" aria-selected="false">Dokumente zur Wohnung</button>
+          </div>
+        </nav>
+      </div>
+      <div id="general-edit-content" class="px-6 py-4">
+        <!-- Überblick -->
+        <div class="gen-pane" data-tab-content="edit-ueberblick">
+          <div class="mb-4 text-sm text-gray-600">Bestehende Werte:</div>
+          <ul id="overview-edit-list" class="space-y-2 mb-6"></ul>
+          <div class="p-4 bg-gray-50 rounded border border-gray-200">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+              <input id="ov-id" placeholder="id" class="px-3 py-2 border rounded" />
+              <input id="ov-display" placeholder="Anzeigename" class="px-3 py-2 border rounded" />
+              <input id="ov-icon" placeholder="Icon (z.B. home)" class="px-3 py-2 border rounded" />
+              <input id="ov-value" placeholder="Wert" class="px-3 py-2 border rounded" />
+            </div>
+            <div class="mt-3 flex justify-end">
+              <button id="ov-add-btn" class="px-3 py-2 text-sm bg-green-600 text-white rounded hover:bg-green-700">Hinzufügen</button>
+            </div>
+          </div>
+          <div class="mt-4 flex justify-end">
+            <button id="ov-save-btn" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Speichern</button>
+          </div>
+        </div>
+
+        <!-- Beschreibung -->
+        <div class="gen-pane hidden" data-tab-content="edit-beschreibung">
+          <div class="mb-2 text-sm text-gray-600">Beschreibungstext:</div>
+          <div id="desc-editor" class="bg-white border border-gray-300 rounded" style="height:220px"></div>
+          <div class="mt-4 flex justify-end">
+            <button id="desc-save-btn" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Speichern</button>
+          </div>
+        </div>
+
+        <!-- Dokumente zur Wohnung -->
+        <div class="gen-pane hidden" data-tab-content="edit-dokumente">
+          <div class="mb-3 text-sm text-gray-600">Bestehende Dokumente:</div>
+          <ul id="apt-docs-edit-list" class="space-y-2 mb-6"></ul>
+          <div class="p-4 bg-gray-50 rounded border border-gray-200">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
+              <div>
+                <label class="block text-sm text-gray-700 mb-1">Titel</label>
+                <input id="doc-title" class="px-3 py-2 border rounded w-full" />
+              </div>
+              <div>
+                <label class="block text-sm text-gray-700 mb-1">Icon</label>
+                <input id="doc-icon" class="px-3 py-2 border rounded w-full" placeholder="file-text" />
+              </div>
+              <div>
+                <label class="block text-sm text-gray-700 mb-1">Datei</label>
+                <input id="doc-file" type="file" class="block w-full text-sm" />
+              </div>
+            </div>
+            <div class="mt-3 flex justify-end">
+              <button id="doc-upload-btn" class="px-3 py-2 text-sm bg-green-600 text-white rounded hover:bg-green-700">Hochladen</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="px-6 py-4 border-t border-gray-200 flex justify-end">
+        <button id="general-edit-cancel" class="px-4 py-2 bg-white border border-gray-300 rounded text-gray-700 hover:bg-gray-50">Schließen</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

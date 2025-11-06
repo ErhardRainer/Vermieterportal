@@ -1,0 +1,304 @@
+{
+    "immoId": "1001",
+    "title": "Moderne 3-Zimmer-Wohnung im Zentrum",
+    "rentText": "Mietkosten: von 980 €",
+    "address": {
+        "street": "Hauptstraße 10",
+        "zip": "10115",
+        "city": "Berlin",
+        "full": "Hauptstraße 10, 10115 Berlin",
+        "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.631031301903!2d13.402360215807494!3d52.52000837981389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851c13416a4e3%3A0x86770e64c83e449c!2sAlexanderplatz!5e0!3m2!1sde!2sde!4v1678886000001"
+    },
+    "overview": [
+        {
+            "id": "livingArea",
+            "displayName": "Wohnfläche",
+            "icon": "home",
+            "value": "85 m²"
+        },
+        {
+            "id": "rooms",
+            "displayName": "Zimmer",
+            "icon": "bed-double",
+            "value": "3"
+        },
+        {
+            "id": "bathrooms",
+            "displayName": "Badezimmer",
+            "icon": "bath",
+            "value": "1"
+        },
+        {
+            "id": "ttt",
+            "displayName": "Vermieter",
+            "icon": "",
+            "value": "Erhard Rainer"
+        },
+        {
+            "id": "description",
+            "value": "<p>Helle, modern geschnittene 3-Zimmer-Wohnung mit bodentiefen Fenstern, offenem Wohn-Essbereich und sonnigem Balkon. Parkett und Einbauküche vorhanden. iouoiuiouiou</p>"
+        }
+    ],
+    "images": [
+        {
+            "src": "https://placehold.co/1200x800/3b82f6/ffffff?text=Wohnzimmer",
+            "alt": "Wohnzimmer"
+        },
+        {
+            "src": "https://placehold.co/1200x800/10b981/ffffff?text=Küche",
+            "alt": "Küche"
+        },
+        {
+            "src": "https://placehold.co/1200x800/ef4444/ffffff?text=Schlafzimmer",
+            "alt": "Schlafzimmer"
+        },
+        {
+            "src": "https://placehold.co/1200x800/f59e0b/ffffff?text=Balkon",
+            "alt": "Balkon"
+        }
+    ],
+    "documents": {
+        "apartment": [
+            {
+                "title": "Grundriss (PDF)",
+                "icon": "file-text",
+                "url": "#"
+            },
+            {
+                "title": "3D Modell",
+                "icon": "cube",
+                "url": "#"
+            },
+            {
+                "title": "Energieausweis (PDF)",
+                "icon": "file-text",
+                "url": "#"
+            }
+        ]
+    },
+    "contracts": {
+        "general": {
+            "beginDate": "2020-03-01",
+            "fixedTerm": "Nein",
+            "extensionDate": null
+        },
+        "documents": [
+            {
+                "title": "Mietvertrag",
+                "icon": "file-text",
+                "url": "#"
+            },
+            {
+                "title": "Haustiererlaubnis",
+                "icon": "file-text",
+                "url": "#"
+            },
+            {
+                "title": "Garagenmietvertrag",
+                "icon": "file-text",
+                "url": "#"
+            },
+            {
+                "title": "Verlängerung des Mietvertrags",
+                "icon": "file-text",
+                "url": "#"
+            }
+        ]
+    },
+    "contacts": {
+        "landlord": {
+            "name": "Max Vermieter 2",
+            "address": "Musterstraße 100, 10115 Berlin",
+            "phone": "+49 30 123456",
+            "email": "vermieter@example.com"
+        },
+        "tenant": {
+            "name": "Erika Mieterin",
+            "address": "Hauptstraße 10, 10115 Berlin",
+            "phone": "+49 175 1234567",
+            "email": "mieter@example.com"
+        }
+    },
+    "tradesmen": [
+        {
+            "id": "elektro",
+            "name": "Klaus Schmidt",
+            "specialty": "Elektriker",
+            "phone": "030 111 222",
+            "email": "klaus.schmidt@elektro.de",
+            "icon": "zap"
+        },
+        {
+            "id": "maler",
+            "name": "Erika Wagner",
+            "specialty": "Malerin & Lackiererin",
+            "phone": "030 333 444",
+            "email": "erika.wagner@maler.de",
+            "icon": "paint-roller",
+            "website": "",
+            "comment": "ddd"
+        },
+        {
+            "id": "sanitaer",
+            "name": "Hans Müller",
+            "specialty": "Sanitär & Heizung",
+            "phone": "030 555 666",
+            "email": "hans.mueller@sanitaer.de",
+            "icon": "wrench"
+        },
+        {
+            "id": "boden",
+            "name": "Petra Meyer",
+            "specialty": "Bodenlegerin",
+            "phone": "030 777 888",
+            "email": "petra.meyer@boden.de",
+            "icon": "ruler"
+        },
+        {
+            "id": "t1762432129845",
+            "name": "test",
+            "specialty": "test",
+            "phone": "000",
+            "email": "",
+            "website": "",
+            "comment": "",
+            "icon": "tool"
+        }
+    ],
+    "defects": [
+        {
+            "id": "def1",
+            "title": "Kratzer am Parkett nahe Balkontür",
+            "room": "Wohnzimmer",
+            "description": "Deutliche Kratzspur auf ca. 20 cm Länge in unmittelbarer Nähe zur Balkontür. Vermutlich durch Möbelrücken entstanden.",
+            "images": [
+                "https://placehold.co/1200x800/ef4444/ffffff?text=Parkett+Kratzer+1",
+                "https://placehold.co/1200x800/f97316/ffffff?text=Parkett+Kratzer+2"
+            ]
+        },
+        {
+            "id": "def2",
+            "title": "Lose Silikonfuge an der Dusche",
+            "room": "Bad",
+            "description": "Silikonfuge zwischen Duschwanne und Fliesen ist teilweise lose. Gefahr von Wassereintritt – Neu verfugen empfohlen.",
+            "images": [
+                "https://placehold.co/1200x800/3b82f6/ffffff?text=Fuge+1",
+                "https://placehold.co/1200x800/10b981/ffffff?text=Fuge+2",
+                "https://placehold.co/1200x800/0ea5e9/ffffff?text=Fuge+3"
+            ]
+        },
+        {
+            "id": "def3",
+            "title": "Schublade links klemmt",
+            "room": "Küche",
+            "description": "Die linke Schublade läuft schwergängig und hakt beim Schließen. Führungsschiene prüfen und ggf. justieren/ersetzen.",
+            "images": [
+                "https://placehold.co/1200x800/84cc16/ffffff?text=Schublade+1"
+            ]
+        }
+    ],
+    "messages": [
+        {
+            "id": "msg1",
+            "date": "2024-10-01",
+            "by": "Vermieter",
+            "text": "Die Wartung der Heizung findet nächste Woche statt."
+        },
+        {
+            "id": "msg2",
+            "date": "2024-10-02",
+            "by": "Mieter",
+            "text": "Vielen Dank für die Info. Passt für mich.",
+            "replyTo": "msg1"
+        },
+        {
+            "id": "msg3",
+            "date": "2024-10-15",
+            "by": "Vermieter",
+            "text": "Bitte beachten Sie die neue Hausordnung im Anhang."
+        },
+        {
+            "date": "2025-11-06",
+            "by": "Mieter",
+            "text": "test",
+            "category": "allgemein"
+        },
+        {
+            "date": "2025-11-06",
+            "by": "Mieter",
+            "text": "noch ein Test",
+            "category": "allgemein"
+        },
+        {
+            "id": "msg17624313034922",
+            "date": "2025-11-06",
+            "by": "Mieter",
+            "text": "tesdt",
+            "category": "allgemein",
+            "replyTo": "msg3"
+        }
+    ],
+    "costs": {
+        "2024": {
+            "monthlyPrepayments": [
+                220,
+                220,
+                220,
+                230,
+                230,
+                230,
+                240,
+                240,
+                240,
+                250,
+                250,
+                260
+            ],
+            "actualTotalCost": 2500,
+            "status": "Vorschau",
+            "documents": [
+                {
+                    "title": "Vorschreibung 2024",
+                    "icon": "file-text",
+                    "url": "#"
+                }
+            ]
+        },
+        "2023": {
+            "monthlyPrepayment": 200,
+            "actualTotalCost": 2800,
+            "status": "Abgeschlossen",
+            "documents": [
+                {
+                    "title": "Betriebskostenabrechnung 2023",
+                    "icon": "file-text",
+                    "url": "#"
+                }
+            ]
+        },
+        "2022": {
+            "monthlyPrepayment": 180,
+            "actualTotalCost": 2160,
+            "status": "Abgeschlossen",
+            "documents": [
+                {
+                    "title": "Betriebskostenabrechnung 2022",
+                    "icon": "file-text",
+                    "url": "#"
+                }
+            ]
+        }
+    },
+    "manuals": [
+        {
+            "title": "Herd – Bedienungsanleitung",
+            "icon": "file-text",
+            "url": "#"
+        },
+        {
+            "title": "Geschirrspüler – Bedienungsanleitung",
+            "icon": "file-text",
+            "url": "#"
+        }
+    ]
+}
